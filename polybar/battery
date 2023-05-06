@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Read the battery information using acpi
+battery_info=$(acpi -b)
+
+# Extract the battery percentage and charging status
+battery_percentage=$(echo $battery_info | grep -oP '\d+(?=%)')
+charging_status=$(echo $battery_info | grep -oP '(?<=: )[^\s]+')
+
+# Select a battery icon based on the percentage
+if (( battery_percentage >= 90 )); then
+    battery_icon="󰁹"
+elif (( battery_percentage >= 80 )); then
+    battery_icon="󰂂"
+elif (( battery_percentage >= 70 )); then
+    battery_icon="󰂁"
+elif (( battery_percentage >= 60 )); then
+    battery_icon="󰂀"
+elif (( battery_percentage >= 50 )); then
+    battery_icon="󰁿"
+elif (( battery_percentage >= 40 )); then
+    battery_icon="󰁾"
+elif (( battery_percentage >= 30 )); then
+    battery_icon="󰁽"
+elif (( battery_percentage >= 20 )); then
+    battery_icon="󰁼"
+elif (( battery_percentage >= 10 )); then
+    battery_icon="󰁻"
+else
+    battery_icon="󰁺"
+fi
+
+# Generate the battery progress bar
+bar_width=10
+filled_segments=$(($battery_percentage * $bar_width / 100))
+empty_segments=$(($bar_width - $filled_segments))
+
+# Output the battery icon and progress bar
+printf "%s[%.*s%.*s]" "$battery_icon" "$filled_segments" "$(printf '%0.s#' {1..10})" "$empty_segments" "$(printf '%0.s-' {1..10})"
