@@ -37,7 +37,7 @@
 
     width: 500;
     height: 311;
-    font: "Caskaydia Cove Nerd Font 16";
+    font: "Fira Code Nerd Font 16";
 	text-color:					 @Text;
 }
 
