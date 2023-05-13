@@ -1,0 +1,40 @@
+.batt-cont {
+	margin-right: 25px;
+
+	.icon {
+		font-size: 32px;
+		color: $base;
+		margin-right: 8px;
+	}
+	scale {
+		min-width: 150px;
+		trough {
+			background: $base;
+			border: 0;
+			border-radius: 16px;
+			min-height: 16px;
+	
+			slider {
+				all: unset;
+			}
+	
+			highlight {
+				background: $peach;
+				border: 0;
+				border-radius: 16px;
+			}
+		}
+	}
+}
+
+
+
+(defpoll batperc :interval "1m" "~/.config/eww/bat.py")
+(defwidget battery[]
+    (box :class "batt-cont"
+         :space-evenly "false"
+         (label :class "icon" :text "󰃠")
+         (scale :min 0
+                :max 254
+                :value "100"
+                :onchange "brightnessctl s {}")))
