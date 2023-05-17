@@ -3,7 +3,7 @@
     :geometry (geometry :x "0px"
                         :y "0px"
                         :width "99%"
-                        :height "35px"
+                        :height "40px"
                         :anchor "top center")
     :stacking "fg"
     :reserve (struts :distance "35px" :side "top")
@@ -11,13 +11,13 @@
     :wm-ignore false
     (centerbox :class "bar"
         (workspaces)
-        (time)
-        (battery)))
+	    (time)
+	    (sidestuff)))
 
 
 
 
-(defpoll workspaces_json :interval "100ms" "~/.config/eww/ws.py")
+(defpoll workspaces_json :interval "100ms" "~/.config/eww/go/ws")
 (defwidget workspaces []
     (box :class "workspaces"
          :spacing 5
@@ -35,24 +35,54 @@
 
 
 
-(defpoll time :interval "30s"
-  "~/.config/eww/time.sh")
+(defpoll _time :interval "30s"
+  "~/.config/eww/go/time")
 (defwidget time[]
     (label :class   "time"
            :halign  "center"
            :tooltip "it is now!"
-           :text    "${time.hour}:${time.min} ${time.meridian}"))
+           :text    "${_time.hour}:${_time.min} ${_time.meridian}"))
 
 
 
-(defpoll bat :interval "1m" "~/.config/eww/bat.py")
+
+
+(defwidget sidestuff[]
+    (centerbox :class "sidestuff"
+         :space-evenly "false"
+         :halign "end"
+         :spacing 2
+        (brigtness)
+        (volume)
+        (battery)))
+
+
+(defpoll bat :interval "1m" "~/.config/eww/go/bat")
 (defwidget battery[]
     (box :class  "${bat.class}"
          :halign "end"
          (label :text    "${bat.icon}"
                 :tooltip "${bat.percentage}% | ${bat.timerem}")))
 
-; todo
-; 1 - brightness
-; 2 - volume
 
+(defpoll _brigtness :interval "100ms" "light -G")
+(defwidget brigtness[]
+    (box :class "brigtness"
+         :space-evenly "false"
+        (label :text "󰃠 " :class "icon")
+        (scale :halign "end"
+               :value _brigtness
+               :onchange "light -S {}")))
+
+
+(defpoll vol_icon :interval "100ms" "~/.config/eww/go/vol_icon")
+(defpoll vol_val  :interval "100ms" "pamixer --get-volume")
+(defwidget volume[]
+    (box :class "volume"
+         :space-evenly "false"
+       (button :onclick "pamixer -t"
+               :class "icon"
+           (label :text vol_icon))
+       (scale :halign "end"
+              :value vol_val
+              :onchange "pamixer --set-volume {}")))

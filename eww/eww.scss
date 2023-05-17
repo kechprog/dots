@@ -39,6 +39,7 @@ $crust:    #181926;
 	margin: 2px;
 	border-radius: 8px;
 	border: 2px solid $sapphire;
+	font-size: 16px;
 }
 
 
@@ -52,13 +53,14 @@ $crust:    #181926;
 	color: $rosewater;
 	border: 2px solid $peach;
 	border-radius: 8px;
+	font-size: 16px;
 }
 
 button {
 	color: $peach;
 	background: $base;
 	border: 0;
-	padding: 3px 10px;
+	padding: 3px 12px;
 	margin: 2px;
 	border-radius: 4px;
 }
@@ -92,4 +94,85 @@ button.active {
 	@include battery;
 	color: $red;
 	border: 2px solid $red;
+}
+
+
+
+/*********************************************/
+/* 					BRIGTNESS                */
+/*********************************************/
+.brigtness{
+
+	border: 2px solid $teal;
+	border-radius: 8px;
+	margin: 3px;
+	padding: 3px 4px;
+	background: $base;
+
+	.icon {
+		font-size: 16px;
+		color: $sky;
+	}
+
+	scale {
+
+		min-width: 110px;
+		trough {
+			background: $surface0;
+			border: 0;
+			border-radius: 8px;
+			min-height: 16px;
+
+			slider {
+				all: unset;
+			}
+
+			highlight {
+				background: $blue;
+				border: 0;
+				border-radius: 8px;
+			}
+		}
+	}
+}
+
+
+/*********************************************/
+/* 					BRIGTNESS                */
+/*********************************************/
+.volume{
+
+	border: 2px solid $pink;
+	border-radius: 8px;
+	margin: 3px;
+	padding: 3px 4px;
+	padding-right: 2px;
+	background: $base;
+
+	.icon {
+		padding: 1px 1px;
+		font-size: 16px;
+		color: $flamingo;
+	}
+
+	scale {
+
+		min-width: 110px;
+		trough {
+			background: $surface0;
+			border: 0;
+			border-radius: 8px;
+			min-height: 16px;
+
+			slider {
+				all: unset;
+			}
+
+			highlight {
+				background: $mauve;
+				border: 0;
+				border-radius: 8px;
+			}
+		}
+	}
 }
