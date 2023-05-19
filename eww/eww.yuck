@@ -1,3 +1,6 @@
+(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww")
+
+
 (defwindow bar
     :monitor 0
     :geometry (geometry :x "0px"
@@ -11,8 +14,8 @@
     :wm-ignore false
     (centerbox :class "bar"
         (workspaces)
-	    (time)
-	    (sidestuff)))
+        (time)
+        (sidestuff)))
 
 
 
@@ -32,6 +35,7 @@
          )
     )
 )
+
 
 
 
@@ -77,12 +81,23 @@
 
 (defpoll vol_icon :interval "100ms" "~/.config/eww/go/vol_icon")
 (defpoll vol_val  :interval "100ms" "pamixer --get-volume")
+(defvar show_vol false)
+
 (defwidget volume[]
-    (box :class "volume"
-         :space-evenly "false"
-       (button :onclick "pamixer -t"
-               :class "icon"
-           (label :text vol_icon))
-       (scale :halign "end"
-              :value vol_val
-              :onchange "pamixer --set-volume {}")))
+    (eventbox :onhover     "eww update show_vol=true"
+              :onhoverlost "eww update show_vol=false"
+        (box :orientation  "h" 
+             :space-evenly "false" 
+             :vexpand      "false" 
+             :hexpand      "false" 
+             :class        "volume"
+                (revealer :reveal     show_vol          ; reveal staff
+                          :duration   "350ms"
+                          :transition "slideleft"
+                    (scale :halign "end"
+                           :value vol_val
+                           :onchange "pamixer --set-volume {}"))
+
+                    (button :onclick "pamixer -t"       ; normal thing
+                            :class "icon"
+                       (label :text vol_icon)))))
