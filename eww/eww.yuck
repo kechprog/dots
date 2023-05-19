@@ -70,13 +70,22 @@
 
 
 (defpoll _brigtness :interval "100ms" "light -G")
+(defvar show_brigtness false)
 (defwidget brigtness[]
-    (box :class "brigtness"
-         :space-evenly "false"
-        (label :text "󰃠 " :class "icon")
-        (scale :halign "end"
-               :value _brigtness
-               :onchange "light -S {}")))
+    (eventbox :onhover     "eww update show_brigtness=true"
+              :onhoverlost "eww update show_brigtness=false"
+        (box :orientation  "h" 
+             :space-evenly "false" 
+             :vexpand      "false" 
+             :hexpand      "false" 
+             :class        "brigtness"
+                (revealer :reveal     show_brigtness ; reveal staff
+                          :duration   "350ms"
+                          :transition "slideleft"
+                    (scale :halign "end"
+                           :value vol_val
+                           :onchange "light -S {}"))
+                (label :text "󰃠" :class "icon"))))
 
 
 (defpoll vol_icon :interval "100ms" "~/.config/eww/go/vol_icon")
