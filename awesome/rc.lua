@@ -3,6 +3,7 @@ require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 local awful = require("awful")
 local naughty = require("naughty")
+local gears   = require("gears")
 
 if awesome.startup_errors then
   naughty.notify({ preset = naughty.config.presets.critical,
@@ -33,9 +34,6 @@ awful.layout.layouts = {
   awful.layout.suit.floating,
 }
 
-awful.spawn.with_shell("picom"   	   	   )
-awful.spawn.with_shell("~/.config/awesome/scripts/mk_touchpad.sh")
-awful.spawn.with_shell("fusuma" )
 require 'theme'
 require 'bars'
 require 'callbacks'
@@ -44,3 +42,10 @@ require 'keymap'
 require 'switcher'
 require 'restore_floating_pos'
 
+collectgarbage("setpause", 160)
+collectgarbage("setstepmul", 400)
+
+gears.timer.start_new(10, function()
+  collectgarbage("step", 20000)
+  return true
+end)

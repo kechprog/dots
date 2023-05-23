@@ -20,7 +20,7 @@
 
 
 
-(defpoll workspaces_json :interval "100ms" "~/.config/eww/go/ws")
+(defpoll workspaces_json :interval "300ms" "~/.config/eww/go/ws")
 (defwidget workspaces []
     (box :class "workspaces"
          :spacing 5
@@ -39,16 +39,12 @@
 
 
 
-(defpoll _time :interval "30s"
-  "~/.config/eww/go/time")
+(defpoll _time :interval "1m" "~/.config/eww/go/time")
 (defwidget time[]
     (label :class   "time"
            :halign  "center"
            :tooltip "it is now!"
            :text    "${_time.hour}:${_time.min} ${_time.meridian}"))
-
-
-
 
 
 (defwidget sidestuff[]
@@ -61,7 +57,7 @@
         (battery)))
 
 
-(defpoll bat :interval "1m" "~/.config/eww/go/bat")
+(defpoll bat :interval "10m" "~/.config/eww/go/bat")
 (defwidget battery[]
     (box :class  "${bat.class}"
          :halign "end"
@@ -69,10 +65,10 @@
                 :tooltip "${bat.percentage}% | ${bat.timerem}")))
 
 
-(defpoll _brigtness :interval "100ms" "light -G")
+(defvar _brigtness 0)
 (defvar show_brigtness false)
 (defwidget brigtness[]
-    (eventbox :onhover     "eww update show_brigtness=true"
+    (eventbox :onhover     "eww update show_brigtness=true && eww update _brigtness=$(light)"
               :onhoverlost "eww update show_brigtness=false"
         (box :orientation  "h" 
              :space-evenly "false" 
@@ -83,17 +79,17 @@
                           :duration   "350ms"
                           :transition "slideleft"
                     (scale :halign "end"
-                           :value vol_val
+                           :value _brigtness 
                            :onchange "light -S {}"))
                 (label :text "󰃠" :class "icon"))))
 
 
-(defpoll vol_icon :interval "100ms" "~/.config/eww/go/vol_icon")
-(defpoll vol_val  :interval "100ms" "pamixer --get-volume")
+(defpoll vol_icon :interval "1s" "~/.config/eww/go/vol_icon")
+(defvar vol_val 0)
 (defvar show_vol false)
 
 (defwidget volume[]
-    (eventbox :onhover     "eww update show_vol=true"
+    (eventbox :onhover     "eww update show_vol=true && eww update vol_val=$(pamixer --get-volume)"
               :onhoverlost "eww update show_vol=false"
         (box :orientation  "h" 
              :space-evenly "false" 
