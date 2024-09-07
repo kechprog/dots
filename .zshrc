@@ -7,7 +7,7 @@ export ZSH="$HOME/.oh-my-zsh"
 PATH="$PATH:$HOME/.cargo/bin"
 export PATH=$JAVA_HOME/bin:$PATH
 
-export CUDA_HOME=/opt/cuda
+export CUDA_HOME=/usr/local/cuda
 export PATH=$CUDA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
@@ -16,7 +16,10 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 export PATH=/opt/flutter/bin:$PATH
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="intheloop"
+source ~/.zsh/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+
+# now load zsh-syntax-highlighting plugin
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -107,3 +110,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
