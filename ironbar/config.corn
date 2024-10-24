@@ -1,0 +1,88 @@
+let {
+  $workspace = {
+    type = "workspaces"
+    name_map.1 = "  "
+    name_map.2 = "  "
+    name_map.3 = "  "
+    favorites = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"]
+    all_monitors = false
+  }
+
+  $tray = { type = "tray" }
+
+  $clock = {
+    type = "clock"
+    format = " %B %d  %H:%M"
+  }
+  
+  $focused = {
+    type = "focused"
+    show_icon = false
+    show_title = true
+    icon_size = 18
+    icon_theme = "Tela-circle-nord"
+
+    truncate.mode = "end"
+    truncate.max_length = 25
+  }
+
+  $SysInfo = {
+      type = "sys_info"
+      interval.temps = 3
+      interval.disks = 300
+      interval.memory = 30
+      interval.cpu = 1
+      interval.networks = 3
+      
+  format = [
+      " {cpu_percent}%"
+      " {memory_percent}%"
+      " {temp_c:coretemp-Package-id-0}°C"
+      " {disk_free:/}GB"
+     ]
+  }
+   
+  $volume = {
+    type = "volume"
+    format = "{icon} {percentage}%"
+    max_volume = 100
+    icons.volume_high = " "
+    icons.volume_medium = " "
+    icons.volume_low = " "
+    icons.muted = "󰝟 "
+    on_scroll_down = "wpctl set-volume @DEFAULT_SINK@ 2%-"
+    on_scroll_up = "wpctl set-volume @DEFAULT_SINK@ 2%+"
+    tooltip = "{{/home/ed/.config/ironbar/scripts/volume}}%"
+  }
+
+  $wlogout = {
+    type = "custom"
+    bar = [{
+      type = "button"
+      name = "wlogout"
+      class = "wlogout"
+      label = ""
+      on_click = "!~/.config/ironbar/scripts/wlogout"
+    }]
+  }
+    
+  $weather = {
+    name = "weather"
+    type = "script"
+    mode = "poll"
+    interval = 600000
+    cmd = "~/.config/ironbar/scripts/weather"
+  }
+
+  $start = [ $workspace $focused ]
+  $center = [ $clock ]
+  $end = [ $volume $SysInfo $wlogout ]
+
+} in {
+  icon_theme = "Tela-circle-nord"
+  position = "top"
+  height = 22
+  start = $start
+  center = $center
+  end = $end
+}
