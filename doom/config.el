@@ -3,13 +3,14 @@
 (setq user-full-name "Eduard Kechedzhiev"
       user-mail-address "ed.kechedzhiev@gmail.com")
 
-(setq doom-font (font-spec :family "FiraMono Nerd Font" :size 18 :weight 'normal)
-     doom-big-font (font-spec :family "FiraMono Nerd Font" :size 24))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 18 :weight 'normal)
+     doom-big-font (font-spec :family "FiraCode Nerd Font Mono" :size 24))
 
 (setq doom-theme 'doom-vibrant)
 (setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
+(setq company-idle-delay 0.03)
 
 ;;; Keybinds ;;;
 (map! :n "C-t" #'vterm)

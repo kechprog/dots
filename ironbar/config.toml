@@ -1,0 +1,43 @@
+position = "top"
+height = 28
+
+[[start]]
+type = "workspaces"
+all_monitors = false
+favorites = ["1", "2", "3"]
+
+[start.name_map]
+1  = "1"
+2  = "2"
+3  = "3"
+4  = "4"
+5  = "5"
+6  = "6"
+7  = "7"
+8  = "8"
+9  = "9"
+10 = "10"
+
+
+
+[[center]]
+type = "clock"
+format = "%d/%m/%Y %H:%M"
+
+
+
+[[end]]
+type = "volume"
+format = "{icon} {percentage}%"
+max_volume = 100
+
+[[end]]
+type = "clipboard"
+max_items = 3
+[end.truncate]
+mode = "end"
+length = 50
+
+[[end]]
+type = "upower"
+format = "{percentage}%"
